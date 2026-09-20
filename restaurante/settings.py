@@ -120,6 +120,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Muestra los precios con separador de miles: 9.990 en vez de 9990.
+USE_THOUSAND_SEPARATOR = True
+
+# Formatos propios para Chile (Django no trae el locale es_CL).
+FORMAT_MODULE_PATH = ['restaurante.formats']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

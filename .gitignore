@@ -19,3 +19,6 @@ staticfiles/
 Thumbs.db
 desktop.ini
 ~$*
+
+# Claude Code
+.claude/
