@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inicio | El Buen Sabor{% endblock %}
+{% block nav_inicio %}activo{% endblock %}
+
+{% block contenido %}
+<div class="p-5 mb-4 rounded-3 text-center" style="background-color: #fff; border: 1px solid #e8dccb;">
+    <h1 class="display-5 fw-bold">Bienvenido a El Buen Sabor</h1>
+    <p class="lead col-lg-8 mx-auto">
+        Sistema de gestión de la carta del restaurante. Desde aquí se administran los platos
+        que se ofrecen a los comensales: se agregan, se consultan, se modifican y se dan de baja.
+    </p>
+    <div class="d-flex gap-2 justify-content-center mt-4">
+        <a href="{% url 'carta:lista' %}" class="btn btn-dark btn-lg">Ver la carta</a>
+        <a href="{% url 'carta:crear' %}" class="btn btn-outline-dark btn-lg">Agregar un plato</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h2 class="display-6 fw-bold">{{ total_platos }}</h2>
+                <p class="card-text text-muted mb-0">platos en la carta</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card h-100">
+            <div class="card-header fw-semibold">Disponibles hoy</div>
+            <ul class="list-group list-group-flush">
+                {% for plato in destacados %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ plato.nombre }}</span>
+                        <span class="precio">${{ plato.precio }}</span>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-muted">
+                        Todavía no hay platos cargados.
+                        <a href="{% url 'carta:crear' %}">Agrega el primero</a>.
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
