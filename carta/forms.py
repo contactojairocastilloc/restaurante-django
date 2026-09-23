@@ -28,12 +28,21 @@ class PlatoForm(forms.ModelForm):
                 'placeholder': 'Ej: Lomo de vacuno con papas fritas, cebolla y dos huevos fritos.',
             }),
             'categoria': forms.Select(attrs={'class': 'form-select'}),
+            # AQUÍ ESTÁ EL CAMBIO PARA EL PRECIO
             'precio': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'min': 1,
                 'placeholder': 'Ej: 9990',
+                'oninvalid': "this.setCustomValidity('El valor debe ser mayor o igual a cero.')",
+                'oninput': "this.setCustomValidity('')"
             }),
-            'stock': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+            # AQUÍ ESTÁ EL CAMBIO PARA EL STOCK (porciones)
+            'stock': forms.NumberInput(attrs={
+                'class': 'form-control', 
+                'min': 0,
+                'oninvalid': "this.setCustomValidity('El valor debe ser mayor o igual a cero.')",
+                'oninput': "this.setCustomValidity('')"
+            }),
             'tiempo_preparacion': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'min': 1,
