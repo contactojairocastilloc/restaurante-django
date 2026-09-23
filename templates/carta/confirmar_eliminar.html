@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Eliminar plato</title>
-</head>
-<body>
-    <h1>Confirmar eliminación</h1>
-    <p>¿Estás seguro de que deseas eliminar el siguiente plato de forma permanente?</p>
-    
-    <!-- Cumplimos el requisito de mostrar los datos del plato -->
-    <ul>
-        <li><strong>Plato:</strong> {{ plato.nombre }}</li>
-        <!-- Si tu modelo tiene precio u otros campos, podrías agregarlos aquí -->
-    </ul>
-    
-    <!-- Formulario POST para la eliminación segura -->
-    <form method="post">
-        <!-- El token de seguridad que conversamos antes -->
-        {% csrf_token %}
+{% extends 'base.html' %}
+
+{% block titulo %}Eliminar plato | El Buen Sabor{% endblock %}
+
+{% block contenido %}
+<!-- Usa el mismo encabezado oscuro y quitamos el borde rojo de la tarjeta -->
+<div class="card mt-4 shadow-sm">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Confirmar eliminación</h4>
+    </div>
+    <div class="card-body text-center mt-3 mb-3">
+        <p class="lead text-muted">¿Estás seguro de que deseas eliminar el siguiente plato de forma permanente?</p>
         
-        <!-- Cumplimos el requisito del botón rojo "Sí, eliminar" -->
-        <button type="submit" style="background-color: red; color: white; padding: 5px 10px; cursor: pointer;">
-            Sí, eliminar
-        </button>
+        <!-- El nombre del plato ahora es oscuro y destacado, no rojo -->
+        <h2 class="mb-4 text-dark fw-bold">{{ plato.nombre }}</h2>
         
-        <!-- Cumplimos el requisito de "Cancelar" que vuelva al listado -->
-        <a href="{% url 'carta:lista' %}" style="margin-left: 10px;">Cancelar</a>
-    </form>
-</body>
-</html>
+        <form method="post">
+            {% csrf_token %}
+            <!-- Solo el botón mantiene el color rojo (danger) -->
+            <button type="submit" class="btn btn-danger px-4">Sí, eliminar</button>
+            <a href="{% url 'carta:lista' %}" class="btn btn-secondary px-4 ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
