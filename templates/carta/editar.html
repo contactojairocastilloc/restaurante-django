@@ -1,27 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar plato</title>
-</head>
-<body>
-    <!-- Cumplimos el requisito de mostrar el nombre del plato que se está editando -->
-    <h1>Editar plato: {{ plato.nombre }}</h1>
-    
-    <!-- Formulario para enviar los datos por el método POST -->
-    <form method="post">
-        {% csrf_token %}
-        
-        <!-- Renderizamos el formulario que enviamos desde views.py -->
-        {{ form.as_p }}
-        
-        <!-- Cumplimos el requisito del botón específico -->
-        <button type="submit">Guardar cambios</button>
-    </form>
-    
-    <br>
-    <!-- Cumplimos el requisito del enlace para volver -->
-    <a href="{% url 'carta:lista' %}">Volver al listado</a>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block titulo %}Editar plato | El Buen Sabor{% endblock %}
+
+{% block contenido %}
+<!-- Usamos clases de Bootstrap (card, mt-4, bg-dark, etc.) para darle el aspecto moderno -->
+<div class="card mt-4">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Editar plato: {{ plato.nombre }}</h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Imprimimos el formulario -->
+            {{ form.as_p }}
+            
+            <div class="mt-4">
+                <!-- Botones estilizados -->
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <a href="{% url 'carta:lista' %}" class="btn btn-secondary ms-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

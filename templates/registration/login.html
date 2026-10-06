@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <!-- Se reemplazó bg-primary por el color marrón y texto crema -->
+                <div class="card-header text-center" style="background-color: var(--marron); color: var(--crema);">
+                    <h3 class="mb-0">Iniciar Sesión</h3>
+                </div>
+                <div class="card-body" style="background-color: #fff;">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {{ form.as_p }}
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <!-- Se reemplazó btn-primary por el color gris oscuro -->
+                            <button type="submit" class="btn btn-dark fw-bold text-white">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

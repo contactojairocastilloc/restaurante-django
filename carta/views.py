@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 
 from .forms import PlatoForm
 from .models import Plato
 
-
+@login_required
 def inicio(request):
     """Página principal del restaurante."""
     return render(request, 'carta/inicio.html', {
@@ -14,7 +15,7 @@ def inicio(request):
 
 
 # --- Jairo Castillo: rama jairo/listar-crear ---------------------------------
-
+@login_required
 def lista_platos(request):
     """R del CRUD: consulta los platos guardados en MySQL/MariaDB."""
     platos = Plato.objects.all()
@@ -38,7 +39,7 @@ def lista_platos(request):
         'categorias': Plato.CATEGORIAS,
     })
 
-
+@login_required
 def crear_plato(request):
     """C del CRUD: inserta un plato nuevo en MySQL/MariaDB."""
     if request.method == 'POST':
@@ -57,8 +58,9 @@ def crear_plato(request):
     return render(request, 'carta/crear.html', {'formulario': formulario})
 
 
-# --- Víctor Vergara: rama victor/editar-eliminar -----------------------------
 
+# --- Víctor Vergara: rama victor/editar-eliminar -----------------------------
+@login_required
 def editar_plato(request, pk):
     # 1. Buscamos el plato por su ID (Primary Key) o lanzamos un error 404 si no existe
     plato = get_object_or_404(Plato, pk=pk)
@@ -87,6 +89,7 @@ def editar_plato(request, pk):
     })
 
 
+@login_required
 def eliminar_plato(request, pk):
     # 1. Buscamos el plato por su ID
     plato = get_object_or_404(Plato, pk=pk)
