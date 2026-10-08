@@ -47,6 +47,7 @@
         </button>
         <div class="collapse navbar-collapse" id="menuNav">
             <ul class="navbar-nav ms-auto">
+                <!-- Validación de Frontend (Víctor Vergara): Ocultar opciones de admin a usuarios anónimos -->
                 {% if user.is_authenticated %}
                     <!-- Menú explícito y claro para el personal -->
                     <li class="nav-item ms-3">

@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'carta',
+    'carta','rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'carta:inicio'  # Lo envía a la página principal tras hacer login
 LOGOUT_REDIRECT_URL = 'login' # Lo envía a la página principal tras cerrar sesión
+
+# Configuración de Django REST Framework y JWT
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# --- Parche de compatibilidad de emergencia para MariaDB en XAMPP ---
+import django.db.backends.base.base
+django.db.backends.base.base.BaseDatabaseWrapper.check_database_version_supported = lambda self: None # type: ignore

@@ -5,6 +5,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import PlatoForm
 from .models import Plato
 
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+
+# NOTA: Se implementa @login_required para asegurar que solo los 
+# usuarios autenticados puedan modificar la base de datos (Protección MVT).
 @login_required
 def inicio(request):
     """Página principal del restaurante."""
@@ -107,3 +114,17 @@ def eliminar_plato(request, pk):
     return render(request, 'carta/confirmar_eliminar.html', {
         'plato': plato
     })
+    
+# --- NUEVA API REST (Integración móvil futura) ---
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def api_lista_platos(request):
+    """
+    Endpoint de API REST que devuelve el catálogo de platos en formato JSON.
+    Requiere autenticación mediante Token (JWT).
+    """
+    # Traemos todos los platos de tu base de datos MySQL
+    platos = list(Plato.objects.values('id', 'nombre', 'precio', 'disponible'))
+    
+    # Los devolvemos en formato crudo (JSON)
+    return Response(platos)
