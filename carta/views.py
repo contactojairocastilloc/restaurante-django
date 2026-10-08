@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import PlatoForm
 from .models import Plato
 
+
+# NOTA: Se implementa @login_required para asegurar que solo los 
+# usuarios autenticados puedan modificar la base de datos (Protección MVT).
 @login_required
 def inicio(request):
     """Página principal del restaurante."""
