@@ -1,0 +1,32 @@
+{# Campos del formulario de plato con sus errores. Lo usan crear.html y editar.html. #}
+{% if formulario.non_field_errors %}
+    <div class="alert alert-danger">
+        {% for error in formulario.non_field_errors %}
+            <div>{{ error }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% for campo in formulario %}
+    <div class="mb-3 {% if campo.name == 'disponible' %}form-check{% endif %}">
+        {% if campo.name == 'disponible' %}
+            {{ campo }}
+            <label class="form-check-label" for="{{ campo.id_for_label }}">
+                {{ campo.label }}
+            </label>
+        {% else %}
+            <label class="form-label" for="{{ campo.id_for_label }}">
+                {{ campo.label }}
+            </label>
+            {{ campo }}
+        {% endif %}
+
+        {% if campo.help_text %}
+            <div class="form-text">{{ campo.help_text }}</div>
+        {% endif %}
+
+        {% for error in campo.errors %}
+            <div class="text-danger small mt-1">{{ error }}</div>
+        {% endfor %}
+    </div>
+{% endfor %}

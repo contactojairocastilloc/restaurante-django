@@ -20,40 +20,10 @@
             </div>
             <div class="card-body">
 
-                {% if formulario.non_field_errors %}
-                    <div class="alert alert-danger">
-                        {% for error in formulario.non_field_errors %}
-                            <div>{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
                 <form method="post" novalidate>
                     {% csrf_token %}
 
-                    {% for campo in formulario %}
-                        <div class="mb-3 {% if campo.name == 'disponible' %}form-check{% endif %}">
-                            {% if campo.name == 'disponible' %}
-                                {{ campo }}
-                                <label class="form-check-label" for="{{ campo.id_for_label }}">
-                                    {{ campo.label }}
-                                </label>
-                            {% else %}
-                                <label class="form-label" for="{{ campo.id_for_label }}">
-                                    {{ campo.label }}
-                                </label>
-                                {{ campo }}
-                            {% endif %}
-
-                            {% if campo.help_text %}
-                                <div class="form-text">{{ campo.help_text }}</div>
-                            {% endif %}
-
-                            {% for error in campo.errors %}
-                                <div class="text-danger small mt-1">{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
+                    {% include 'carta/_campos_plato.html' %}
 
                     <div class="d-flex gap-2 mt-4">
                         <button type="submit" class="btn btn-dark">Guardar plato</button>
